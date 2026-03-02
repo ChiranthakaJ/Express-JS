@@ -9,21 +9,15 @@ import express from "express";
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-// The PORT variable is used to specify the port number on which the server will listen for incoming requests. It first checks 
-// if there is a PORT environment variable set (which is common in production environments), and if not, it defaults to 3000. 
-// This allows the server to be flexible and adaptable to different deployment environments. || is the logical OR operator, 
-// which is used here to provide a fallback value (3000) in case process.env.PORT is undefined or falsy.
+// The PORT variable is used to specify the port number on which the server will listen for incoming requests. It first checks if there is a PORT environment variable set (which is common in production environments), and if not, it defaults to 3000. 
+// This allows the server to be flexible and adaptable to different deployment environments. || is the logical OR operator, which is used here to provide a fallback value (3000) in case process.env.PORT is undefined or falsy.
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
-// The listen method is used to start the server and listen for incoming HTTP requests. It takes a port number as an argument, 
-// which specifies the port on which the server will listen for requests. For example, app.listen(3000) will start the 
-// server on port 3000. Once the server is running, it will be able to handle incoming requests and send responses back to clients.
+// The listen method is used to start the server and listen for incoming HTTP requests. It takes a port number as an argument, which specifies the port on which the server will listen for requests. For example, app.listen(3000) will start the server on port 3000. Once the server is running, it will be able to handle incoming requests and send responses back to clients.
 
-// The second argument to the listen method is a callback function, (starts with {}) that will be executed once the server 
-// starts successfully. In this case, it logs a message to the console indicating that the server is running and on which 
-// port it is listening. This is useful for confirming that the server has started correctly and is ready to handle requests.
+// The second argument to the listen method is a callback function, (starts with {}) that will be executed once the server starts successfully. In this case, it logs a message to the console indicating that the server is running and on which port it is listening. This is useful for confirming that the server has started correctly and is ready to handle requests.
 
 //------------------------------------------------------------------------------
 
@@ -59,21 +53,36 @@ NOTE: We have to comment out one app.get() at a time in order to get the respons
 /*SNIPPET 1: Text response to the client browser or HTTP client. When a client makes a GET request to the root URL ("/"), 
 the server will respond with the message "Hello, World!".*/
 
+/*
+app.get("/", (req, res) => {
+    res.send({text:"Hello, World 🥕 "}); //Simple text response to the client browser or HTTP client. When a client makes a GET request to the root URL ("/"), 
+    // the server will respond with the message "Hello, World!".
+});
+/*
+
+/*output in the web browser or HTTP client will be: Use curl http://localhost:3000/ or open http://localhost:3000/ in the web browser to see the output.*/
+/*############################################################################################################## */
+/*
+{
+"text": "Hello, World 🥕 "
+}
+*/
+
 /*SNIPPET 2: JSON response to the client browser or HTTP client. When a client makes a GET request to the root URL ("/"), 
 the server will respond with a JSON object containing the message "Hello, World!".*/
 
 /*
 app.get("/", (req, res) => {
-    res.send({text:"Hello, World!"}); //Simple text response to the client browser or HTTP client. When a client makes a GET request to the root URL ("/"), 
-    // the server will respond with the message "Hello, World!".
-});
-
-app.get("/", (req, res) => {
     res.send({json: { msg: "Hello, World!" }}); //JSON response to the client browser or HTTP client. When a client makes a GET request to the root URL ("/"), 
     // the server will respond with a JSON object containing the message "Hello, World!".
 });
-
 */
+
+/*output in the web browser or HTTP client will be: Use curl http://localhost:3000/ or open http://localhost:3000/ in the web browser to see the output.*/
+/*############################################################################################################## */
+/*
+{"json":{"msg":"Hello, World!"}}
+/*
 
 //To get both types of responses, for the same route, in two separate lines on the web browser, we can follow the below approach:
 
@@ -91,8 +100,13 @@ app.get("/", (req, res) => {
 });
 */
 
-/*output in the web browser or HTTP client will be:
-{"text":"Hello, World!\n","json":{"msg":"Hello, World!"}}*/
+
+/*output in the web browser or HTTP client will be: Use curl http://localhost:3000/ or open http://localhost:3000/ in the web browser to see the output.*/
+/*############################################################################################################## */
+
+/*
+{"text":"Hello, World!","json":{"msg":"Hello, World!"}}
+*/
 
 //To resolve the display in single line issue, I followed the below approach:
 
@@ -101,7 +115,7 @@ the server will respond with both a text message and a JSON object containing th
 sent as separate responses, allowing the client to receive and display them on separate lines.*/
 
 app.get("/", (req, res) => {
-    const textData = "Hello, World!";
+    const textData = "Hello, World! ✈ ";
     const jsonData = { msg: "Hello, World!" };
 
     // We send a string of HTML to the browser
@@ -111,8 +125,11 @@ app.get("/", (req, res) => {
     `);
 });
 
-/*output in the web browser or HTTP client will be:
-Hello, World!
+/*output in the web browser or HTTP client will be: Use curl http://localhost:3000/ or open http://localhost:3000/ in the web browser to see the output.*/
+/*############################################################################################################## */
+
+/*
+Hello, World! ✈
 {
   "msg": "Hello, World!"
 }
@@ -135,6 +152,13 @@ app.get('/api/users', (req, res) => {
             ])
 });
 
+/*output in the web browser or HTTP client will be: Use curl http://localhost:3000/api/users or open http://localhost:3000/api/users in the web browser to see the output.*/
+/*############################################################################################################## */
+
+/*
+[{"id":1,"username":"anson","displayname":"Anson"},{"id":2,"username":"john","displayname":"John"},{"id":3,"username":"adam","displayname":"Adam"}]
+*/
+
 
 /* SNIPPET 6: Sending a list of products as a JSON response. When a client makes a GET request to the "/api/products" URL, 
 the server will respond with a JSON array containing a list of product objects, each with an id, name, and price. */
@@ -144,3 +168,26 @@ app.get("/api/products", (req, res) => {
               {id: 3, name:"Headphones", price: 199.99}
             ])
 });
+
+/*output in the web browser or HTTP client will be: Use curl http://localhost:3000/api/products or open http://localhost:3000/api/products in the web browser to see the output.*/
+/*############################################################################################################## */
+
+/*
+[
+{
+"id": 1,
+"name": "Laptop",
+"price": 999.99
+},
+{
+"id": 2,
+"name": "Smartphone",
+"price": 499.99
+},
+{
+"id": 3,
+"name": "Headphones",
+"price": 199.99
+}
+]
+*/
