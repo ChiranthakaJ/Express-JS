@@ -161,7 +161,7 @@ app.get('/api/users', (req, res) => {
 
 
 /* SNIPPET 6: Sending a list of products as a JSON response. When a client makes a GET request to the "/api/products" URL, 
-the server will respond with a JSON array containing a list of product objects, each with an id, name, and price. */
+the server will respond with a JSON array containing a list of product obj is the ects, each with an id, name, and price. */
 app.get("/api/products", (req, res) => {
     res.send([{id: 1, name:"Laptop", price: 999.99}, 
               {id: 2, name:"Smartphone", price: 499.99}, 
